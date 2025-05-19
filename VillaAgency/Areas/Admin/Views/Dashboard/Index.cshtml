@@ -1,0 +1,37 @@
+﻿@model List<Villa>
+
+<div class="container mt-5">
+    <a class="btn btn-success mb-2" asp-action="Create">Create New Villa</a>
+    <table class="table table-striped-columns">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Description</th>
+                <th scope="col">Image</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@counter</th>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.Description</td>
+                    <td><img style="width:100px; height:100px;" src="~/Uploads/Villa/@item.ImageUrl"></td>
+                    <td>
+                        <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning mr-2">Update</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                counter++;
+            }
+        </tbody>
+    </table>
+</div>

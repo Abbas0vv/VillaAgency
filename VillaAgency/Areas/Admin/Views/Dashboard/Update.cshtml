@@ -1,0 +1,28 @@
+﻿@model UpdateVillaViewModel
+
+<div class="container mt-5">
+    <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label asp-for="Name" for="exampleFormControlInput1" class="form-label">Name</label>
+            <input asp-for="Name" type="text" class="form-control" id="exampleFormControlInput1" value="@Model.Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" for="exampleFormControlTextarea1" class="form-label">Description</label>
+            <textarea asp-for="Description" class="form-control" id="exampleFormControlTextarea1" rows="3" value="@Model.Description"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Price" for="exampleFormControlInput1" class="form-label">Price</label>
+            <input asp-for="Price" type="number" class="form-control" id="exampleFormControlInput1" value="@Model.Price">
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="File" for="formFile" class="form-label">Add Villa Image</label>
+            <input asp-for="File" class="form-control" type="file" id="formFile" value="@Model.File">
+            <span asp-validation-for="File" class="text-danger"></span>
+        </div>
+        <a asp-action="Index" class="btn btn-secondary mr-2">Go Back To Dashboard</a>
+        <button type="submit" class="btn btn-success">Save</button>
+    </form>
+</div>
