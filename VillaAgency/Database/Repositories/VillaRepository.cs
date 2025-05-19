@@ -1,4 +1,5 @@
-﻿using VillaAgency.Database.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using VillaAgency.Database.Interfaces;
 using VillaAgency.Database.Models;
 using VillaAgency.Database.ViewModels;
 using VillaAgency.Helpers.Extentions;
@@ -26,7 +27,7 @@ public class VillaRepository : IVillaRepository
         if (value >= GetAll().Count) return GetAll();
         return _context.Villas.OrderBy(v => v.Id).Take(value).ToList();
     }
-    public Villa GetById(int id)
+    public Villa GetById(int? id)
     {
         return _context.Villas.FirstOrDefault(v => v.Id == id);
     }
@@ -43,20 +44,24 @@ public class VillaRepository : IVillaRepository
         _context.Villas.Add(villa);
         _context.SaveChanges();
     }
-    public UpdateVillaViewModel GetByIdViewModel(int id)
+    public UpdateVillaViewModel GetByIdViewModel(int? id)
     {
+        var model = new UpdateVillaViewModel();
+        if (id is null) return model;
+
         var villa = GetById(id);
-        var model = new UpdateVillaViewModel()
         {
-            Name = villa.Name,
-            Description = villa.Description,
-            Price = villa.Price,
+            model.Name = villa.Name;
+            model.Description = villa.Description;
+            model.Price = villa.Price;
         };
 
         return model;
     }
-    public void Update(int id, UpdateVillaViewModel model)
+    public void Update(int? id, UpdateVillaViewModel model)
     {
+        if (id is null) return;
+
         var villa = GetById(id);
         villa.Name = model.Name;
         villa.Description = model.Description;
@@ -67,10 +72,10 @@ public class VillaRepository : IVillaRepository
         _context.Update(villa);
         _context.SaveChanges();
     }
-    public void Delete(int id)
+    public void Delete(int? id)
     {
         var villa = GetById(id);
-        FileExtention.RemoveFile(Path.Combine(_environment.WebRootPath, FOLDER_NAME,villa.ImageUrl));
+        FileExtention.RemoveFile(Path.Combine(_environment.WebRootPath, FOLDER_NAME, villa.ImageUrl));
         _context.Remove(villa);
         _context.SaveChanges();
     }

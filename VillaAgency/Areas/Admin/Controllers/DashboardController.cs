@@ -35,24 +35,33 @@ public class DashboardController : Controller
     }
 
     [HttpGet]
-    public IActionResult Update(int id)
+    public IActionResult Update(int? id)
     {
+        if (id is null || _villaRepository.GetById(id) is null) return RedirectToAction(nameof(PageNotFound));
         var model = _villaRepository.GetByIdViewModel(id);
         return View(model);
     }
 
     [HttpPost]
-    public IActionResult Update(int id, UpdateVillaViewModel model)
+    public IActionResult Update(int? id, UpdateVillaViewModel model)
     {
-        if(!ModelState.IsValid) return View(model);
+        if (id is null || _villaRepository.GetById(id) is null) return RedirectToAction(nameof(PageNotFound));
+        if (!ModelState.IsValid) return View(model);
         _villaRepository.Update(id, model);
         return RedirectToAction(nameof(Index));
     }
 
     [HttpGet]
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int? id)
     {
+        if(id is null || _villaRepository.GetById(id) is null) return RedirectToAction(nameof(PageNotFound));
         _villaRepository.Delete(id);
         return RedirectToAction(nameof(Index));
+    }
+
+    [HttpGet]
+    public IActionResult PageNotFound()
+    {
+        return View();
     }
 }
