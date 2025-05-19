@@ -20,17 +20,19 @@ namespace VillaAgency
                 options.UseSqlServer(connectionString));
 
             builder.Services.AddIdentity<AppUser, AppRole>()
-                .AddEntityFrameworkStores<AppDbContext>();
+                .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
             builder.Services.AddRazorPages();
 
             builder.Services.AddScoped<IVillaRepository, VillaRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             builder.Services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
                 options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 6;
@@ -43,7 +45,7 @@ namespace VillaAgency
                 // User settings.
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._";
-                options.User.RequireUniqueEmail = true;
+                options.User.RequireUniqueEmail = false;
             });
 
             var app = builder.Build();

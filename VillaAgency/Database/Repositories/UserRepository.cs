@@ -22,10 +22,11 @@ public class UserRepository : IUserRepository
         {
             Name = model.Name,
             Surname = model.Surname,
-            Email = model.Email,
+            UserName = model.Username,
+            Email = model.Email
         };
 
-        await _userManager.CreateAsync(user, model.Password);
+        var result = await _userManager.CreateAsync(user, model.Password);
     }
 
     public async Task<bool> LoginUser(LoginViewModel model)
@@ -33,7 +34,7 @@ public class UserRepository : IUserRepository
         var user = await _userManager.FindByEmailAsync(model.Email);
 
         var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, true);
-
+        await _signInManager.SignInAsync(user,true);
         return result.Succeeded;
     }
 

@@ -1,0 +1,38 @@
+﻿@model RegisterViewModel
+
+<div class="container " style="width: 25%; margin:auto; height:50vh;">
+    <form method="post" style="margin-top:3rem;">
+        <div class="mb-3">
+            <label asp-for="Name" for="exampleFormControlInput1" class="form-label">Name</label>
+            <input asp-for="Name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Villa Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Surname" for="exampleFormControlTextarea1" class="form-label">Surname</label>
+            <input asp-for="Surname" class="form-control" id="exampleFormControlTextarea1" placeholder="Enter Surname">
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Username" for="exampleFormControlTextarea1" class="form-label">Username</label>
+            <input asp-for="Username" class="form-control" id="exampleFormControlTextarea1" placeholder="Enter Username">
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Email" for="exampleFormControlTextarea1" class="form-label">Email</label>
+            <input asp-for="Email" type="email" class="form-control" id="exampleFormControlTextarea1" placeholder="Enter Email">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password" for="exampleFormControlTextarea1" class="form-label">Password</label>
+            <input asp-for="Password" type="password" class="form-control" id="exampleFormControlTextarea1" placeholder="Enter Password">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ConfirmPassword" for="exampleFormControlTextarea1" class="form-label">Confirm Password</label>
+            <input asp-for="ConfirmPassword" type="password" class="form-control" id="exampleFormControlTextarea1" placeholder="Confirm Password">
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary mr-2">Go Back To HomePage</a>
+        <button type="submit" class="btn btn-success">Register</button>
+    </form>
+</div>

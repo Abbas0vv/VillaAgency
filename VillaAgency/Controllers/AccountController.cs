@@ -18,12 +18,11 @@ public class AccountController : Controller
         return View();
     }
 
-
     [HttpPost]
-    public IActionResult Register(RegisterViewModel model)
+    public async Task<IActionResult> Register(RegisterViewModel model)
     {
         if (!ModelState.IsValid) return View(model);
-        _userRepository.RegisterUser(model);
+        await _userRepository.RegisterUser(model);
 
         return RedirectToAction("Index", "Home");
     }
