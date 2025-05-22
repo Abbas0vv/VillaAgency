@@ -19,7 +19,7 @@ namespace VillaAgency
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            builder.Services.AddIdentity<AppUser, AppRole>()
+            builder.Services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();

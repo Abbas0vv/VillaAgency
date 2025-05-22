@@ -38,10 +38,7 @@ public class AccountController : Controller
     {
         if (!ModelState.IsValid) return View(model);
 
-        var isSucceeded = await _userRepository.LoginUser(model);
-
-        if (!isSucceeded) return View(model);
-
+        await _userRepository.LoginUser(model);
         return RedirectToAction("Index", "Home");
     }
 
@@ -49,6 +46,13 @@ public class AccountController : Controller
     public async Task<IActionResult> LogOut()
     {
         await _userRepository.LogOut();
+        return RedirectToAction("Index", "Home");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> CreateRole()
+    {
+        await _userRepository.CreateRole();
         return RedirectToAction("Index", "Home");
     }
 }

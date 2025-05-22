@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VillaAgency.Database.Interfaces;
 using VillaAgency.Database.ViewModels;
 namespace VillaAgency.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = "Admin")]
 public class DashboardController : Controller
 {
     private readonly IVillaRepository _villaRepository;
@@ -29,7 +31,7 @@ public class DashboardController : Controller
     [HttpPost]
     public IActionResult Create(CreateVillaViewModel model)
     {
-        if(!ModelState.IsValid) return View(model);
+        if (!ModelState.IsValid) return View(model);
         _villaRepository.Insert(model);
         return RedirectToAction(nameof(Index));
     }
@@ -54,7 +56,7 @@ public class DashboardController : Controller
     [HttpGet]
     public IActionResult Delete(int? id)
     {
-        if(id is null || _villaRepository.GetById(id) is null) return RedirectToAction(nameof(PageNotFound));
+        if (id is null || _villaRepository.GetById(id) is null) return RedirectToAction(nameof(PageNotFound));
         _villaRepository.Delete(id);
         return RedirectToAction(nameof(Index));
     }

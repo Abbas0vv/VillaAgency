@@ -5,7 +5,7 @@ using VillaAgency.Database.Models.Account;
 
 namespace VillaAgency.Database;
 
-public class AppDbContext : IdentityDbContext<AppUser, AppRole, int>
+public class AppDbContext : IdentityDbContext<AppUser>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
